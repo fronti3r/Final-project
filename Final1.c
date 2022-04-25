@@ -71,9 +71,9 @@ if (selection==1){
          printf("Enter the student's id:");
          scanf("%d", &studentRecords[recordId].studentId);
          printf("Enter the student's first name:");
-         scanf("%s", studentRecords[recordId].firstName);
+         scanf("%s", &studentRecords[recordId].firstName);
          printf("Enter the student's last name:");
-         scanf("%s", studentRecords[recordId].lastName);
+         scanf("%s", &studentRecords[recordId].lastName);
          //printf("Enter how many courses [%s %s] is taking (up to 4 courses)?\n", name1,name2);
          //  scanf("%d", num);
          printf("Enter the courseID here:");
