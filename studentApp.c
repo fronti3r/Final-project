@@ -18,10 +18,17 @@ typedef struct course{
     char* courseName;
 }course;
 
+<<<<<<< HEAD
 typedef struct studentCourse{
     int studenId;
     course coursesId[4];
 }studentCourse;
+=======
+typedef struct studentCourses{
+    student studentList;
+    course courses[4];
+}studentCourses;
+>>>>>>> 477914b91af027cebe26ac937bb6748adbbddc33
 
 int tempStudentId=0;
 int numMaxStudents = 10;
@@ -33,6 +40,7 @@ void addStudent(int studentId, char* firstName, char*LastName);
 void printStudents(student *studentRecords, int numRecords);
 void preintInvoice(student *studentRecords);
 void addCourse(int studentNum, course *studentCourse);
+<<<<<<< HEAD
 bool validateCourse(int courseNum);
 
 struct student studentRecords[10];
@@ -53,10 +61,24 @@ struct course courses[10] = {
 //courses[0].crn=4587;
 //courses[0].creditHours=4;
 //courses[0].courseName="MAT 236";
+=======
+
+struct student studentRecords[10];
+//student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
+>>>>>>> 477914b91af027cebe26ac937bb6748adbbddc33
 
 // Driver program
 int main() {
 
+<<<<<<< HEAD
+=======
+  int numMaxCourses = 10;
+  course* courses = malloc(numMaxCourses * sizeof *courses);
+  courses[0].crn=4587;
+  courses[0].creditHours=4;
+  courses[0].courseName="MAT 236";
+
+>>>>>>> 477914b91af027cebe26ac937bb6748adbbddc33
   //Create an array of student structure records
 
   
@@ -162,6 +184,7 @@ void addCourse(int studentId, course *studentCourse) {
 
 }
 
+<<<<<<< HEAD
 bool validateCourse(int courseNum) {
     //Check if course number is valid
     printf("Size of studentCourses array %lu",sizeof(studentCourses));
@@ -175,6 +198,8 @@ bool validateCourse(int courseNum) {
     return false;
 }
 
+=======
+>>>>>>> 477914b91af027cebe26ac937bb6748adbbddc33
 void printStudents(student *studentRecords,int numRecords) {
 
     //Need a for loop to iterate array
