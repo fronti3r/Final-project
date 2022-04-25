@@ -146,7 +146,7 @@ void printStudents(student *studentList,int numRecords) {
     else
     for(int i=0; i < numRecords ; i++) {
         printf("Student List\n");
-        printf("%s %s\n",studentList[i].firstName,studentList[i].lastName);
+        printf("%s %s\n",&studentList[i].firstName,&studentList[i].lastName);
     }
 
     return;
