@@ -9,49 +9,49 @@ typedef struct student{
     int studentId;
     char* firstName;
     char* lastName;
-    int *courseId;
 }student;
 
 typedef struct course{
     int crn;
     int creditHours;
-    char* course;
+    char* courseName;
 }course;
 
-typedef struct studentRecord{
-    student* studentList;
-    course* studentCourse;
-}studentRecord;
+typedef struct studentCourses{
+    student studentList;
+    course courses[4];
+}studentCourses;
 
 int tempStudentId=0;
 int numMaxStudents = 10;
+ int recordId=0;
 //void addStudent(int studentId,char* name1,char* name2,int* num1);
 
 //Functions for application
-void printStudents(student *studentList, int numRecords);
-void printInvoice(student *studentList);
-void addCourse(student *studentList, course *studentCourse);
+void addStudent(int studentId, char* firstName, char*LastName);
+void printStudents(student *studentRecords, int numRecords);
+void preintInvoice(student *studentRecords);
+void addCourse(int studentNum, course *studentCourse);
 
-
-
+struct student studentRecords[10];
+//student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
 
 // Driver program
 int main() {
 
-  studentCourses[0].crn=4587;
-  studentCourses[0].creditHours=4;
-  studentCourses[0].course="MAT 236";
+  int numMaxCourses = 10;
+  course* courses = malloc(numMaxCourses * sizeof *courses);
+  courses[0].crn=4587;
+  courses[0].creditHours=4;
+  courses[0].courseName="MAT 236";
 
   //Create an array of student structure records
 
   
-  student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
+  //student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
 
-  int numMaxCourses = 8;
-  //Create storage for course catalogue
-  course* courses = malloc(numMaxCourses * sizeof *courses);
 
-  int recordId=0;
+ 
   
   //student* studentList = malloc(2 * sizeof(student));
   
@@ -59,18 +59,19 @@ int main() {
   //Create storage for students
   //List * studentList = makelist();
   //int selection,id,*num,*num1;
-  int selection;
+  int selection=-1;
   //selection=NULL;
   //id=NULL;
   //num=NULL;
   //num1=NULL;
-  //char name1[10], name2[10], choice;
-  char choice;
+  char *firstName, *lastName;
+  int studentId = 0;
+  //char choice;
   //int courses[4];
   //num = malloc(sizeof(int));
   //num1 = malloc(sizeof(int));
 
-//   int studentId = 0;
+
 //   char* firstName = "John";
 //   char* lastName = "Doe";
 //   int courses[] = {20,30,40,50};
@@ -83,19 +84,22 @@ int main() {
     //printf("Enter the Student's ID:");
     //     scanf("%d", &id);
     if (selection==1){
-        studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
-        studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
+        //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
+        //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
         
         printf("Enter the student's id:");
-        scanf("%d", &studentRecords[recordId].studentId);
+        //scanf("%d", &studentRecords[recordId].studentId);
+        scanf("%d", &studentId);
         printf("Enter the student's first name:");
-        scanf("%s", studentRecords[recordId].firstName);
+        //scanf("%s", studentRecords[recordId].firstName);
+        scanf("%s", firstName=(char*)malloc(sizeof(char*)));
         printf("Enter the student's last name:");
-        scanf("%s", studentRecords[recordId].lastName);
+        scanf("%s", lastName=(char*)malloc(sizeof(char*)));
+        addStudent(studentId,firstName,lastName);
         //printf("Enter how many courses [%s %s] is taking (up to 4 courses)?\n", name1,name2);
         //  scanf("%d", num);
-        printf("Enter the courseID here:");
-            scanf("%d", &studentRecords[recordId].courseId);
+        //printf("Enter the courseID here:");
+          //  scanf("%d", &studentRecords[recordId].courseId);
 
         recordId++;
 
@@ -115,26 +119,35 @@ int main() {
         printStudents(studentRecords,recordId);
     }
   }
-   exit;
+ //  exit;
 
   return 0;
+}
+
+void addStudent(int studentId, char* firstName, char* lastName) {
+    //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
+    //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
+    studentRecords[recordId].firstName=firstName;
+    studentRecords[recordId].lastName=lastName;
+    return;
 }
 
 void addCourse(int studentId, course *studentCourse) {
     //Search for studentid in studentList
     //Add course to student's records
+    return;
 
 }
 
-void printStudents(student *studentList,int numRecords) {
+void printStudents(student *studentRecords,int numRecords) {
 
     //Need a for loop to iterate array
     if(numRecords == 0)
         printf("No Records\n");
     else
     for(int i=0; i < numRecords ; i++) {
-        printf("Student List\n");
-        printf("%s %s\n",studentList[i].firstName,studentList[i].lastName);
+        printf("Student Records\n");
+        printf("%s %s\n",studentRecords[i].firstName,studentRecords[i].lastName);
     }
 
     return;
