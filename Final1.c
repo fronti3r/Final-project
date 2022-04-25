@@ -17,7 +17,7 @@ typedef struct student{
 }student;
 
 typedef struct studentRecord{
-    student* studentList;
+    student studentList[10];
     //course* studentCourse;
 }studentRecord;
 
@@ -38,12 +38,13 @@ typedef struct Node
 //______________________
 //void printAll (student *);
 void printCrns ( int *);
-int searchById ( studentRecord *, int);;
+int searchById (int id);;
 //______________________
+struct student studentRecords[10];
 int main()
 {
 //student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
-struct student studentRecords[10];
+
 
 int recordId=0;
 
@@ -87,15 +88,15 @@ if (selection==1){
     scanf("%d", &id);
 
     //index = searchById (A, id);
-    index = searchById(studentRecords,id);
+    index = searchById(id);
 
 
     if (index == -1 ) printf ("%d NOT found\n", id);
     else
     {
     printf ("Student found...\n");
-    printf("[id: %d] <-->[Name: %s]", id, studentRecords[id].firstName);
-    printCrns (A[index].crns);
+    printf("[id: %d] <-->[Name: %s]\n", id, studentRecords[id].firstName);
+    //printCrns (A[index].crns);
     }
     printf("\n________________________\n");
          }
@@ -130,11 +131,13 @@ void printCrns ( int * crnArray)
 //    }
 //
 //}
-int searchById (studentRecord *studentRecord, int id)
+int searchById (int id)
 {
     for(int i=0;i<maxStds;i++)
     {
-        if(&studentRecord[i].studentList->studentId==id)
+        printf("Search records %d",studentRecords[i].studentId);
+        if(studentRecords[i].studentId==id)
+        //studentRecord->studentList->courseId
         return i;
     }
     return -1;
