@@ -33,8 +33,18 @@ struct course courses[10] = {
                                 {8977,1,"CMP 100"},
                             };
 
+struct student studentRecords[10] = {{1254,"Zayd","Ali"},
+        {6589,"Nimra","Bilal",},
+        {1587,"Peta", "Chelsea"},
+        {6089,"Rachel","Cones"},
+        {7136,"Cory","Becka"}
+        };
+int studentRecordStartIndex=5;
+//student* studentRecords = malloc(numMaxStuden
+
 int main() {
    // printf() displays the string inside quotation
    printf("Size of studentCourses array %lu",sizeof(studentCourses)/sizeof(studentCourses[0]));
+   printf("Size of studentRecords array %lu",sizeof(studentRecords)/sizeof(studentRecords[0]));
    return 0;
 }
