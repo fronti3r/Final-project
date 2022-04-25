@@ -2,7 +2,12 @@
 #include <stdlib.h>
 #include "linkedlist.h"
 
-
+typedef struct studentInfo{
+    int studentId;
+    char* firstName;
+    char* lastName;
+    int *courseId;
+}studentInfo;
 
 struct node {
   struct studentInfo data;
