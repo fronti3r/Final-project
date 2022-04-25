@@ -38,7 +38,7 @@ typedef struct Node
 //______________________
 //void printAll (student *);
 void printCrns ( int *);
-int searchById ( classmate *, int);;
+int searchById ( studentRecord *, int);;
 //______________________
 int main()
 {
@@ -86,14 +86,15 @@ if (selection==1){
     printf ("Enter the student's id: ");
     scanf("%d", &id);
 
-    index = searchById (A, id);
+    //index = searchById (A, id);
+    index = searchById(studentRecords,id);
 
 
     if (index == -1 ) printf ("%d NOT found\n", id);
     else
     {
     printf ("Student found...\n");
-    printf("[id: %d] <-->[Name: %s]", id, A[index].name);
+    printf("[id: %d] <-->[Name: %s]", id, studentRecords[id].firstName);
     printCrns (A[index].crns);
     }
     printf("\n________________________\n");
@@ -129,11 +130,11 @@ void printCrns ( int * crnArray)
 //    }
 //
 //}
-int searchById ( classmate * array, int id)
+int searchById (studentRecord *studentRecord, int id)
 {
     for(int i=0;i<maxStds;i++)
     {
-        if(array[i].id==id)
+        if(&studentRecord[i].studentList->studentId==id)
         return i;
     }
     return -1;
