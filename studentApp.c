@@ -31,6 +31,8 @@ int recordId=0;
 int studentRecordStartIndex=5;
 int maxNumberofCourses = 4;
 int sizeofArray = 3;
+float costPerCreditHour = 120.25;
+float studentFees = 35.00;
 //void addStudent(int studentId,char* name1,char* name2,int* num1);
 
 //Functions for application
@@ -45,6 +47,7 @@ void printRegisteredCourses(int studentId);
 bool validateCourse(int courseNum);
 void printAvailableCourses();
 void printLine();
+void printHeader();
 void delay(int milliseconds);
 
 //Build an array of student records and fill in initial values.
@@ -111,9 +114,9 @@ int main() {
 //   int courses[] = {20,30,40,50};
   //int *courseId = &courses;
   system("clear");
+  printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
   while(selection != 0) {
 
-    printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
     printf("Choose from the following options:\n 1- Add a new student\n 2- Add/Delete a course\n 3- Search for a student\n 4- Print fee invoice \n 5- Print Students \n 6- Print Registered Courses \n 0- Exit Program");
     printf("\nEnter your selection:");
         scanf("%d", &selection);
@@ -165,8 +168,10 @@ int main() {
         searchStudent(studentId);
     }
     else if (selection==4){
-        printInvoice(studentId);
-        printLine();
+        printf("Enter the student's id:");
+        //scanf("%d", &studentRecords[recordId].studentId);
+        scanf("%d", &studentId);
+        printRegisteredCourses(studentId);
     }
     else if (selection==5){
         printStudents();
@@ -274,19 +279,43 @@ bool validateCourse(int courseNum) {
 
 void printRegisteredCourses(int studentId){
      int numRecords = sizeofArray;
+     float tempTotal = 0;
+     int tempCreditHours =0;
+     int tempCoursesFound =0;
     //printf("CRN\tCourse Name\tCredit Hours\n");
+        system("clear");
+        printHeader();
+        printf("Fee Invoice Prepared for Student:\n");
+        //Need to call getStudent Info to retrieve full name
+        printf("%i\n\n",studentId);
+        printf("1 Credit Hour = $120.25\n\n");
+        printf("CRN\tCR_PREFIX\tCR_HOURS\n");
     for(int i=0; i < numRecords ; i++) {
         //printf("Student Id %i\n",studentCourses[i].studentId);
         //If matches student id then go through the registered courses
+        
         if(studentCourses[i].studentId == studentId) {
             for(int j=0; j<maxNumberofCourses; j++) {
         //}
-            if(studentCourses[i].coursesId[j] != 0)
-            //printf("Student RegisteredCourse %i\n",studentCourses[i].coursesId[j]);
-            printf("%s\n",getCourseInfo(studentCourses[i].coursesId[j])->courseName);
-            printf("%i\n",getCourseInfo(studentCourses[i].coursesId[j])->creditHours);
-            printf("%i\n",getCourseInfo(studentCourses[i].coursesId[j])->crn);
+            
+            if(studentCourses[i].coursesId[j] != NULL) {
+                //printf("Student RegisteredCourse %i\n",studentCourses[i].coursesId[j]);
+                tempCreditHours = getCourseInfo(studentCourses[i].coursesId[j])->creditHours;
+                printf("%i\t",getCourseInfo(studentCourses[i].coursesId[j])->crn);
+                printf("%s\t\t",getCourseInfo(studentCourses[i].coursesId[j])->courseName);
+                printf("%i\t",tempCreditHours);
+                printf("$ %.2f\t",tempCreditHours * costPerCreditHour);
+                printf("\n");
+                tempTotal=tempTotal + (tempCreditHours * costPerCreditHour);
+                tempCoursesFound++;
+            }
         }
+            printf("tempCoursesValue: %i%",tempCoursesFound);
+            printf("\n\t\t\t\tHealth & id fees $ %.2f",studentFees);
+            printf("\n\n");
+            printLine();
+            printf("\t\t\t\tTotal Payments %.2f", tempTotal);
+            printf("\n\n");
     }
         //if(courses[i].courseName != NULL)
         //printf("%d\t %s\t %d\n",courses[i].crn,courses[i].courseName,courses[i].creditHours);
@@ -343,6 +372,13 @@ void printInvoice(int studentId) {
 void printLine(){
     printf("\n-----------------------------------------------------------------------------\n");
     return;
+}
+
+void printHeader(){
+    //system("clear");
+    printf("VALENCE COMMUNITY COLLEGE\n");
+    printf("ORLANDO FL 10101\n");
+    printLine();
 }
 
 void delay(int milliseconds)
