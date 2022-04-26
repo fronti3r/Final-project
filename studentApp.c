@@ -21,13 +21,16 @@ typedef struct course{
 }course;
 
 typedef struct studentCourse{
-    int studenId;
+    int studentId;
     int coursesId[4];
 }studentCourse;
 
 int tempStudentId=0;
 int numMaxStudents = 10;
- int recordId=0;
+int recordId=0;
+int studentRecordStartIndex=5;
+int maxNumberofCourses = 4;
+int sizeofArray = 3;
 //void addStudent(int studentId,char* name1,char* name2,int* num1);
 
 //Functions for application
@@ -36,7 +39,9 @@ void printStudents();
 void printStudent(int studentId);
 bool searchStudent(int studentId);
 void printInvoice(int studentId);
-void addCourse(int studentNum);
+void addCourse(int studentId);
+course* getCourseInfo(int crn);
+void printRegisteredCourses(int studentId);
 bool validateCourse(int courseNum);
 void printAvailableCourses();
 void printLine();
@@ -49,7 +54,7 @@ struct student studentRecords[10] = {{1254,"Zayd","Ali"},
                                     {6089,"Rachel","Cones"},
                                     {7136,"Cory","Becka"}
                                     };
-int studentRecordStartIndex=5;
+//int studentRecordStartIndex=5;
 //student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
 
 //Build an array of students registered for courses and fill in with initial values.
@@ -71,6 +76,7 @@ struct course courses[10] = {{4587,4,"MAT 236"},
                             {9856,2,"STA 100"},
                             {8520,5,"TNV 400"},
                             {8977,1,"CMP 100"}};
+int maxAvailableCourses=10;
 //courses[0].crn=4587;
 //courses[0].creditHours=4;
 //courses[0].courseName="MAT 236";
@@ -79,10 +85,10 @@ struct course courses[10] = {{4587,4,"MAT 236"},
 int main() {
 
 
-  
+
   //student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
   //student* studentList = malloc(2 * sizeof(student));
-  
+
   //struct Node* head = NULL;
   //Create storage for students
   //List * studentList = makelist();
@@ -103,12 +109,12 @@ int main() {
 //   char* firstName = "John";
 //   char* lastName = "Doe";
 //   int courses[] = {20,30,40,50};
-  //int *courseId = &courses; 
+  //int *courseId = &courses;
   system("clear");
   while(selection != 0) {
-    
+
     printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
-    printf("Choose from the following options:\n 1- Add a new student\n 2- Add/Delete a course\n 3- Search for a student\n 4- Print fee invoice \n 5- Print Students \n 0- Exit Program");
+    printf("Choose from the following options:\n 1- Add a new student\n 2- Add/Delete a course\n 3- Search for a student\n 4- Print fee invoice \n 5- Print Students \n 6- Print Registered Courses \n 0- Exit Program");
     printf("\nEnter your selection:");
         scanf("%d", &selection);
     //printf("Enter the Student's ID:");
@@ -116,7 +122,7 @@ int main() {
     if (selection==1){
         //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
         //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
-        
+
         printf("Enter the student's id:");
         //scanf("%d", &studentRecords[recordId].studentId);
         scanf("%d", &studentId);
@@ -137,7 +143,7 @@ int main() {
         //   exit;
         }
     else if (selection==2){
-        //Call and add function to print students current courses 
+        //Call and add function to print students current courses
         //CourseNumber, Prefix, Credit Hours
 
         //Add options to get for adding, deleting or canceling adding course options
@@ -165,6 +171,12 @@ int main() {
     else if (selection==5){
         printStudents();
         printLine();
+    }
+    else if (selection==6){
+        printf("Enter the student's id:");
+        //scanf("%d", &studentRecords[recordId].studentId);
+        scanf("%d", &studentId);
+        printRegisteredCourses(studentId);
     }
   }
  //  exit;
@@ -218,16 +230,29 @@ Logic required for addCourse
                 printf("\nEnter the %d course number: ",i+1);
                 //scanf("%d", tempCourseSelection[i]);
                 //while(validateCourse(tempCourseSelection[i])
-                    
+
                 //Add course to studentCourses array
         }
-                
+
     //Search for studentid in studentList
     //Add course to student's records
     return;
 
 }
 
+course* getCourseInfo(int crn) {
+    int numRecords = maxAvailableCourses;
+    int indexOfCourse = 0;
+    course tempCourses[4];
+    //Do a for loop to query the courses
+     for(int i=0; i < numRecords ; i++) {
+         if(crn == courses[i].crn){
+            tempCourses[indexOfCourse]=courses[i];
+            indexOfCourse++;
+         }
+     }
+    return tempCourses;
+}
 bool validateCourse(int courseNum) {
     //Check if course number is valid
     printf("Size of courses array %lu\n",sizeof(courses));
@@ -244,13 +269,31 @@ bool validateCourse(int courseNum) {
     //     }
     //remove later
     return false;
-    //}           
+    //}
 }
 
 void printRegisteredCourses(int studentId){
-    //Search in 
-    //printf("Courses registered for %s\n",stud)
+     int numRecords = sizeofArray;
+    //printf("CRN\tCourse Name\tCredit Hours\n");
+    for(int i=0; i < numRecords ; i++) {
+        //printf("Student Id %i\n",studentCourses[i].studentId);
+        //If matches student id then go through the registered courses
+        if(studentCourses[i].studentId == studentId) {
+            for(int j=0; j<maxNumberofCourses; j++) {
+        //}
+            if(studentCourses[i].coursesId[j] != 0)
+            //printf("Student RegisteredCourse %i\n",studentCourses[i].coursesId[j]);
+            printf("%s\n",getCourseInfo(studentCourses[i].coursesId[j])->courseName);
+            printf("%i\n",getCourseInfo(studentCourses[i].coursesId[j])->creditHours);
+            printf("%i\n",getCourseInfo(studentCourses[i].coursesId[j])->crn);
+        }
+    }
+        //if(courses[i].courseName != NULL)
+        //printf("%d\t %s\t %d\n",courses[i].crn,courses[i].courseName,courses[i].creditHours);
+        }
+        return;
 }
+
 
 void printStudents() {
     int numRecords = sizeof(studentRecords)/sizeof(studentRecords[0]);
