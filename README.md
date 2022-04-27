@@ -18,20 +18,20 @@
 
 
 #Functions for application
-`void addStudent(int studentId, char* firstName, char*LastName);`
-`void printStudents();`
-`void printStudent(student studentVar);`
-`student searchStudent(int studentId);`
-`void printInvoice(int studentId);`
-`void addCourse(int studentId);`
-`course* getCourseInfo(int crn);`
-`bool checkStudentRegistration(int studentId);`
-`void printRegisteredCourses(int studentId);`
-`bool validateCourse(int courseNum);`
-`void printAvailableCourses();`
-`void printLine();`
-`void printHeader();`
-`void delay(int milliseconds);`
+void addStudent(int studentId, char* firstName, char*LastName);
+void printStudents();
+void printStudent(student studentVar);
+student searchStudent(int studentId);
+void printInvoice(int studentId);
+void addCourse(int studentId);
+course* getCourseInfo(int crn);
+bool checkStudentRegistration(int studentId);
+void printRegisteredCourses(int studentId);
+bool validateCourse(int courseNum);
+void printAvailableCourses();
+void printLine();
+void printHeader();
+void delay(int milliseconds);
 
 structure
 
