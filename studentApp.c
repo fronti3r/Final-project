@@ -126,9 +126,7 @@ int main() {
     //printf("Enter the Student's ID:");
     //     scanf("%d", &id);
     if (selection==1){
-        //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
-        //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
-        //while(studentExists == false) {
+
             printf("Enter the student's id:");
             //scanf("%d", &studentRecords[recordId].studentId);
             scanf("%d", &studentId);
@@ -149,16 +147,7 @@ int main() {
             
             //recordId++;
     }
-        //printf("Enter how many courses [%s %s] is taking (up to 4 courses)?\n", name1,name2);
-        //  scanf("%d", num);
-        //printf("Enter the courseID here:");
-          //  scanf("%d", &studentRecords[recordId].courseId);
 
-        
-
-        //   printf("Student added successfully!");
-        //   exit;
-       // }
     else if (selection==2){
         //Call and add function to print students current courses
         //CourseNumber, Prefix, Credit Hours
@@ -172,8 +161,19 @@ int main() {
         printLine();
         printAvailableCourses();
         printf("Enter the student's id:");
+        //scanf("%d", &studentRecords[recordId].studentId);
         scanf("%d", &studentId);
-        addCourse(studentId);
+        tempStudent = searchStudent(studentId);
+            if (tempStudent.studentId != 0){
+                if(checkStudentRegistration(studentId))
+                    printRegisteredCourses(studentId);
+                else
+                    printf("Student isn't registered for any courses.\n");
+            }
+            else {
+                printf("\n\nStudent with ID %d doesn't exists",studentId);
+            }
+        
     }
     else if (selection==3){
         printf("Enter the student's id:");
@@ -207,11 +207,15 @@ int main() {
         else
             printf("Student isn't registered for any courses.\n");
     }
-    else 
-    printf("Incorrect Selection, please try again!\n");
+    else if (selection==0){
+        printf("Goodbye!\n");
+        exit;
+    }
+    else {
+        printf("Incorrect Selection, please try again!\n");
+        selection = -1;
+    }
   }
- //  exit;
-
   return 0;
 }
 
