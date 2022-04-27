@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef struct student{
     int studentId;
@@ -34,7 +35,7 @@ struct course courses[10] = {
                             };
 int maxAvailableCourses=10;
 
-struct student studentRecords[10] = {{1254,"Zayd","Ali"},
+struct student studentRecords[10] = {{1234,"Zayd","Ali"},
         {6589,"Nimra","Bilal",},
         {1587,"Peta", "Chelsea"},
         {6089,"Rachel","Cones"},
@@ -52,7 +53,9 @@ struct studentCourse studentCourses[10] = {
                                         };
 int sizeofArray = 3;
 void printRegisteredCourses();
+student searchStudent(int studentId);
 course* getCourseInfo(int crn);
+bool checkStudentRegistration(int studentId);
 
 int main() {
    // printf() displays the string inside quotation
@@ -65,9 +68,25 @@ int main() {
     //printf("Student RegisteredCourse %i\n",studentCourses[0].coursesId[0]);
     //printf("Student RegisteredCourse %i\n",studentCourses[0].coursesId[2]);
     //printRegisteredCourses();
-    printf("%s\n",getCourseInfo(4587)->courseName);
-    printf("%i\n",getCourseInfo(4587)->creditHours);
-    printf("%i\n",getCourseInfo(4587)->crn);
+    // printf("%s\n",getCourseInfo(4587)->courseName);
+    // printf("%i\n",getCourseInfo(4587)->creditHours);
+    // printf("%i\n",getCourseInfo(4587)->crn);
+   
+    //printf("Array info %i",sizeof(searchStudent(1)->studentId)
+    // bool studentExists;
+    // int studentId = 1;
+    // student tempStudent = searchStudent(studentId);
+
+    // if (tempStudent.studentId == 0) {
+    //             printf("Search Results: %d\n",tempStudent.studentId);
+    //             printf("\n\nStudent with ID %d doesn't exists",studentId);
+    //             studentExists = true;
+    //         }
+    // else {
+    //     printf("StudentSearch Result: %d\n",tempStudent.studentId);
+    //     studentExists=false;
+    // }
+    printf("Registration Status: %d\n",checkStudentRegistration(123));
 
    return 0;
 }
@@ -100,4 +119,33 @@ course* getCourseInfo(int crn) {
          }
      }
     return tempCourses;
+}
+
+student searchStudent(int studentId) {
+    int numRecords = studentRecordStartIndex;
+    student tempStudent;
+    tempStudent.studentId = NULL;
+    //printf("Entering searchStudent function\n\n");
+    for(int i=0; i < numRecords ; i++) {
+        //printf("%d\n",studentRecords[i].studentId);
+            if (studentRecords[i].studentId == studentId) {
+                tempStudent = studentRecords[i];
+            }
+    }
+    return tempStudent;
+}
+
+
+bool checkStudentRegistration(int studentId) {
+    int numRecords = maxAvailableCourses;
+    int indexOfCourse = 0;
+    bool registeredStatus = false;
+    //Do a for loop to query the courses
+     for(int i=0; i < numRecords ; i++) {
+         if(studentId == studentCourses->studentId){
+            registeredStatus = true;
+            indexOfCourse++;
+         }
+     }
+    return registeredStatus;
 }
