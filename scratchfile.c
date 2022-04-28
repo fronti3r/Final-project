@@ -44,7 +44,7 @@ struct student studentRecords[10] = {{1234,"Zayd","Ali"},
         {6089,"Rachel","Cones"},
         {7136,"Cory","Becka"}
         };
-int studentRecordStartIndex=5;
+int studentRecordStartIndex;
 int maxNumberofCourses = 4;
 float costPerCreditHour = 120.25;
 float studentFees = 35.00;
@@ -58,8 +58,9 @@ struct studentCourse studentCourses[] = {
                                         };
 
                                         
-int studentCourseStartIndex = 3;
+//int studentCourseStartIndex = 3;
 void printRegisteredCourses();
+void addStudent(int studentId, char* firstName, char*LastName);
 student searchStudent(int studentId);
 course* getCourseInfo(int crn);
 bool checkStudentRegistration(int studentId);
@@ -67,9 +68,13 @@ void menuAddCourse(student studentVar);
 bool validateCourse(int courseId);
 void addCourse(int studentId, int courseId);
 int sizeOfStudentCourses();
+int sizeOfStudentRecords();
 void printRegistrationInfo();
+void printStudents();
+void printStudentCourses();
 void printHeader();
 void printLine();
+
 
 int main() {
    // printf() displays the string inside quotation
@@ -101,41 +106,52 @@ int main() {
     //     studentExists=false;
     // }
     //printf("Registration Status: %d\n",checkStudentRegistration(123));
-    // student tempStudent = {100,"Will","Perez"};
+    student tempStudent = {100,"Will","Perez"};
     // menuAddCourse(tempStudent);
     //printf("Size of studentCourses array: %lu",sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]));
     // {1234,{4587,4599,8997}},
     // {6589,{4587,1232,8520,9856}},
     // {1587,{1232}}
-    addCourse(15871, 8520);
-    // addCourse(15872, 8520);
-    // addCourse(15873, 8520);
-    // addCourse(15874, 8520);
-    // addCourse(15875, 8520);
+    //printf("studentrecordsindexsize1:%d\n",sizeOfStudentRecords());
+    //addStudent(15871,"Tom","Jones");
+    //printStudents();
+    // addCourse(15871, 8520);
+    // //addCourse(15871, 8520);
+    // addCourse(15871, 8977);
+    // addCourse(15871, 1232);
+    // addCourse(15871, 9696);
+    //menuAddCourse(tempStudent);
+    printRegisteredCourses(1234);
+    
+    //printRegistrationInfo();
+    // // addCourse(15872, 8520);
+    // // addCourse(15873, 8520);
+    // // addCourse(15874, 8520);
+    // // addCourse(15875, 8520);
 
-    if(checkStudentRegistration(15871))
-          printf("Student registered\n");
-     else
-          printf("Student not registered\n");
+    // if(checkStudentRegistration(15871))
+    //       printf("Student registered\n");
+    //  else
+    //       printf("Student not registered\n");
 
-    //int indexsize1=sizeof(studentCourses->studentId)/sizeof(studentCourses[0].studentId);
-    //int indexsize1=sizeof(studentCourses->studentId);
-    printf("indexsize1:%d\n",sizeOfStudentCourses());
-    int index=sizeOfStudentCourses();
-    for(int i = 0; i < 20; i++) {
-        studentCourses[index+i].studentId=100+i;
-        studentCourses[index+i].coursesId[0]=200+i;
-        studentCourses[index+i].coursesId[1]=300+i;
-        studentCourses[index+i].coursesId[2]=400+i;
-        studentCourses[index+i].coursesId[3]=500+i;
+    // //int indexsize1=sizeof(studentCourses->studentId)/sizeof(studentCourses[0].studentId);
+    // //int indexsize1=sizeof(studentCourses->studentId);
+    // printf("indexsize1:%d\n",sizeOfStudentCourses());
+    // int index=sizeOfStudentCourses();
+    // for(int i = 0; i < 20; i++) {
+    //     studentCourses[index+i].studentId=100+i;
+    //     studentCourses[index+i].coursesId[0]=200+i;
+    //     studentCourses[index+i].coursesId[1]=300+i;
+    //     studentCourses[index+i].coursesId[2]=400+i;
+    //     studentCourses[index+i].coursesId[3]=500+i;
 
-    }
+    // }
   
-    //indexsize1=sizeof(studentCourses)/sizeof(student));
-    printf("indexsize1:%d\n",sizeOfStudentCourses());
+    // //indexsize1=sizeof(studentCourses)/sizeof(student));
+    // printf("indexsize1:%d\n",sizeOfStudentCourses());
   
-
-    printRegistrationInfo();
+    //printf("studentrecordsindexsize1:%d\n",sizeOfStudentRecords());
+    //printRegistrationInfo();
    return 0;
 }
 
@@ -169,12 +185,40 @@ course* getCourseInfo(int crn) {
     return tempCourses;
 }
 
+void addStudent(int studentId, char* firstName, char* lastName) {
+    student tempStudent;
+    //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
+    //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
+    studentRecordStartIndex = sizeOfStudentRecords();
+    printf("studentRecordStartIndex:%d\n",studentRecordStartIndex);
+    tempStudent = searchStudent(studentId);
+    if (tempStudent.studentId == 0) {
+        studentRecords[studentRecordStartIndex].studentId=studentId;
+        studentRecords[studentRecordStartIndex].firstName=firstName;
+        studentRecords[studentRecordStartIndex].lastName=lastName;
+    }
+    else {
+        printf("\n\nStudent with ID %d already exists",studentId);
+        return;
+    }
+    //printf("Student %s %s added\n",firstName, lastName);
+    //printLine();
+    // printf("Adding record");
+    // for(int i=1;i<2000;i=i+100) {
+    //     printf(".");
+    // }
+    printf("Student %s %s added\n",firstName, lastName);
+    //delay(2000);
+    //delay(3000);
+    //system("clear");
+    return;
+}
+
 student searchStudent(int studentId) {
-    int numRecords = studentRecordStartIndex;
     student tempStudent;
     tempStudent.studentId = NULL;
     //printf("Entering searchStudent function\n\n");
-    for(int i=0; i < numRecords ; i++) {
+    for(int i=0; i < sizeOfStudentRecords() ; i++) {
         //printf("%d\n",studentRecords[i].studentId);
             if (studentRecords[i].studentId == studentId) {
                 tempStudent = studentRecords[i];
@@ -183,32 +227,97 @@ student searchStudent(int studentId) {
     return tempStudent;
 }
 
+void printStudents() {
+    int numRecords = sizeof(studentRecords)/sizeof(studentRecords[0]);
+    //printf("Number of Records to Search: %d\n",numRecords);
+    //Need a for loop to iterate array
+    if(numRecords == 0) {
+        printf("No Records\n");
+    }
+    else{
+        //printLine();
+        printf("Students List:\n");
+        printf("ID\t Full Name\n");
+        for(int i=0; i < numRecords ; i++) {
+            if (studentRecords[i].studentId != NULL)
+            printf("%d\t %s %s\n",studentRecords[i].studentId,studentRecords[i].firstName,studentRecords[i].lastName);
+        }
+    }
+
+    return;
+}
+
 
 void menuAddCourse (student studentVar) {
     int courseId=0;
-    char selection='d';
-    while(selection != 'C') {
-    printf("\n\n\nChoose from:\n A - Add a new course for [%s %s]\n B- Delete a course for [%s %s]'s schedule\n C- Cancel Operations\n",studentVar.firstName,studentVar.lastName,studentVar.firstName,studentVar.lastName);
-    printf("\nEnter your selection: ");
-        scanf("%c", &selection);
-        selection = toupper(selection);
-    //printf("Enter the Student's ID:");
-    //     scanf("%d", &id);
-    if (selection =='A')
-        printf("Enter course Number to add:");
+    char menu_option;
+    
+    while(1)
+    {
+        printf("\n\n\nChoose from:\n A- Add a new course for [%s %s]\n B- Delete a course for [%s %s]'s schedule\n C- Cancel Operations\n",studentVar.firstName,studentVar.lastName,studentVar.firstName,studentVar.lastName);
+        printf("\nEnter your selection: ");
+        scanf("%c", &menu_option);
+        menu_option = toupper(menu_option);
+        //printf("Enter the Student's ID:");
+        //     scanf("%d", &id);
+        fflush(stdin);
+        switch(menu_option){
+
+        case 'A':
+            printf("case a");
+            printf("Enter course Number to add:");
             scanf("%d", &courseId);
-        validateCourse(courseId);
-        addCourse(studentVar.studentId,courseId);
-    if (selection=='C'){
-        return;
-    }
+            if(validateCourse(courseId)) {
+                addCourse(studentVar.studentId,courseId);
+                return;
+            }
+            else {
+              printf("Invalid course number %d, please try again\n",courseId);
+              break;
+            }
+        case 'B':
+            printf("case b");
+            break;
+        case'C':
+            printf("case c");
+            //difficulty = get_difficulty();
+            return;
+        default:
+        //     printf("invalid input");
+            break;
+        }
     }
     return;
 }
 
 
 bool validateCourse(int courseId) {
-    return true;
+    bool validCourse=false;
+    for(int i=0; i<sizeof(courses)/sizeof(courses[0]);i++) {
+        if(courses[i].crn==courseId)
+            validCourse=true;
+    }
+    return validCourse;
+
+}
+
+void printStudentCourses() {
+    int numRecords = sizeof(studentCourses)/sizeof(studentCourses[0]);
+        //printf("Number of Records to Search: %d\n",numRecords);
+        //Need a for loop to iterate array
+        if(numRecords == 0) {
+            printf("No Records\n");
+        }
+        else{
+            //printLine();
+            printf("Students Courses List:\n");
+            for(int i=0; i < numRecords ; i++) {
+                if (studentCourses[i].studentId != NULL)
+                printf("studentid:%d,courseids:%d,%d,%d,%d\n",studentCourses[i].studentId,studentCourses[i].coursesId[0],studentCourses[i].coursesId[1],studentCourses[i].coursesId[2],studentCourses[i].coursesId[3]);
+            }
+        }
+
+    return;
 
 }
 
@@ -228,24 +337,11 @@ void addCourse(int studentId, int courseId) {
     // 1. Check if student already registered in courseid
     // 2. If not then proceed to add
     // 2a. 
-    // studentCourseStartIndex++;
-    // //studentCourses[studentCourseStartIndex] = {}
-    // if(studentCourses[i].coursesId[j] != NULL) {
-    //                     //printf("Student RegisteredCourse %i\n",studentCourses[i].coursesId[j]);
-    //                     tempCreditHours = getCourseInfo(studentCourses[i].coursesId[j])->creditHours;
-    //                     printf("%i\t",getCourseInfo(studentCourses[i].coursesId[j])->crn);
-    //                     printf("%s\t\t",getCourseInfo(studentCourses[i].coursesId[j])->courseName);
-    //                     printf("%i\t",tempCreditHours);
-    //                     printf("$ %.2f\t",tempCreditHours * costPerCreditHour);
-    //                     printf("\n");
-    //                     tempTotal=tempTotal + (tempCreditHours * costPerCreditHour);
-    //                     tempCoursesFound++;
-    //                 }
     int availCourseCount=4;
-    int nextIndex = sizeof(studentCourses)/sizeof(studentCourses->studentId);
+    int nextIndex = sizeOfStudentCourses();
     //If student isn't registered for any courses, add immediately.
         if(!checkStudentRegistration(studentId)) {
-            printf("index value: %d\n",nextIndex);
+            //printf("index value: %d\n",nextIndex);
             studentCourses[nextIndex].studentId=studentId;
             studentCourses[nextIndex].coursesId[0]=courseId;
             //printRegisteredCourses(studentId);
@@ -255,32 +351,21 @@ void addCourse(int studentId, int courseId) {
         //If student is registered then check for 
         else {
         //if(studentCourses[i].studentId == studentId) {
-            for(int i=0; i < sizeof(studentCourses)/sizeof(studentCourses[0]); i++){
-                    //printf("{{%i},",studentCourses[i].studentId);
-                if(studentCourses[i].studentId == studentId) {
-                        //If studentid matches then iterate courses registered looking for non matches.  
-                        for(int j=0; j<sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]); j++){
-                            //printf("j:%i ",j); 
-                            //printf("{%i}",studentCourses->coursesId[j]);
-                            if(studentCourses->coursesId[j] != 0) {
-                                availCourseCount--;
-                                printf("%i ",studentCourses->coursesId[j]);
-                            }
-                        }
-                        
-                }
-                else
-                printf("Student record not found in row\n");                    //availCourseCount=4;
+              for(int i=0; i < sizeof(studentCourses)/sizeof(studentCourses[0]); i++) {
+                  if(studentCourses[i].studentId == studentId)
+                //printf("%i:",studentCourses[i].studentId);
+                for(int j=0; j<sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]); j++) {
+                    if(studentCourses[i].coursesId[j]==0 && studentCourses[i].studentId==studentId) {
+                        //printf("%i,",studentCourses[i].coursesId[j]);
+                        studentCourses[i].coursesId[j]=courseId;
+                        return;
+                    }
+
+             //printf("\n");
             }
-            if(availCourseCount>0) {
-                studentCourses->coursesId[(4-availCourseCount)]=courseId;
-                //printRegisteredCourses(studentId);
-            }
-            //printf("\nAvailable course count: %d\n",availCourseCount);
-        else
-        printf("Student not registered in classes %d\n",courseId);
+            //printf("\n");
         }
-    
+        }
      return;
 }
 
@@ -347,12 +432,16 @@ int sizeOfStudentCourses() {
         if(studentCourses[i].studentId != 0)
             size++;
     }
-         //printf("%i:",studentCourses[i].studentId);
-         //for(int j=0; j<sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]); j++) {
-         //    printf("%i,",studentCourses[i].coursesId[j]);
-             //printf("\n");
-         //}
-         //printf("\n");
+    return size;
+}
+
+int sizeOfStudentRecords() {
+    int size=0;
+    for(int i=0; i < sizeof(studentRecords)/sizeof(studentRecords[0]); i++) {
+        if(studentRecords[i].studentId != 0)
+            size++;
+        //printf("%i:\n",studentRecords[i].studentId);
+    }
     return size;
 }
 

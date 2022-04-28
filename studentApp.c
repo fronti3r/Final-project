@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <ctype.h>
 
 //#include "linkedlist.h"
 
@@ -41,16 +42,24 @@ void addStudent(int studentId, char* firstName, char*LastName);
 void printStudents();
 void printStudent(student studentVar);
 student searchStudent(int studentId);
-void printInvoice(int studentId);
-void addCourse(int studentId);
+
+void addCourse(int studentId, int courseId);
+void menuAddCourse (student studentVar);
 course* getCourseInfo(int crn);
 bool checkStudentRegistration(int studentId);
 void printRegisteredCourses(int studentId);
 bool validateCourse(int courseNum);
+int sizeOfStudentCourses();
+int sizeOfStudentRecords();
+void printStudentCourses();
+
+void printStudentInvoice(int studentId);
+void printInvoice(int studentId);
 void printAvailableCourses();
 void printLine();
 void printHeader();
 void delay(int milliseconds);
+void displayMainMenu();
 
 //Build an array of student records and fill in initial values.
 struct student studentRecords[10] = {{1254,"Zayd","Ali"},
@@ -88,137 +97,142 @@ int maxAvailableCourses=10;
 
 // Driver program
 int main() {
+    //student tempStudent = {100,"Will","Perez"};
+    //printRegisteredCourses(1254);
+    //menuAddCourse(tempStudent);
+    displayMainMenu();
+return 0;
+}
 
+void displayMainMenu() {
+    char *firstName, *lastName;
+    int studentId = 0;
+    int selection=-1;
+    system("clear");
+    printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
+    while(selection != 0) {
+        printLine();
+        printf("\n\n\nChoose from the following options:\n");
+        printf("1- Add a new student\n");
+        printf("2- Add/Delete a course\n");
+        printf("3- Search for a student\n");
+        printf("4- Print fee invoice \n");
+        printf("5- Print students \n");
+        printf("6- Print a student's registered courses\n");
+        printf("7- Print all students registered courses\n");
+        printf("0- Exit Program\n");
 
+        printf("\nEnter your selection:");
+            scanf(" %d", &selection);
+        //printf("Enter the Student's ID:");
+        //     scanf("%d", &id);
+        
+        //Add new student
+        if (selection==1){
 
-  //student* studentRecords = malloc(numMaxStudents * sizeof *studentRecords);
-  //student* studentList = malloc(2 * sizeof(student));
+                printf("Enter the student's id:");
+                //scanf("%d", &studentRecords[recordId].studentId);
+                scanf("%d", &studentId);
+                tempStudent = searchStudent(studentId);
+                if (tempStudent.studentId != 0){
+                    printf("Search Results: %d\n",tempStudent.studentId);
+                    printf("\n\nStudent with ID %d already exists\n\n",studentId);
+                }
+                else {
+                    printf("Enter the student's first name:");
+                    //scanf("%s", studentRecords[recordId].firstName);
+                    scanf("%s", firstName=(char*)malloc(sizeof(char*)));
+                    printf("Enter the student's last name:");
+                    scanf("%s", lastName=(char*)malloc(sizeof(char*)));
+                    addStudent(studentId,firstName,lastName);
+                }
+            //}
+                
+                //recordId++;
+        }
 
-  //struct Node* head = NULL;
-  //Create storage for students
-  //List * studentList = makelist();
-  //int selection,id,*num,*num1;
-  int selection=-1;
-  //selection=NULL;
-  //id=NULL;
-  //num=NULL;
-  //num1=NULL;
-  char *firstName, *lastName;
-  int studentId = 0;
-  //char choice;
-  //int courses[4];
-  //num = malloc(sizeof(int));
-  //num1 = malloc(sizeof(int));
+        //Add or delete a course
+        else if (selection==2){
+            //Call and add function to print students current courses
+            //CourseNumber, Prefix, Credit Hours
 
+            //Add options to get for adding, deleting or canceling adding course options
+            //Use a switch/case for gathering option chosen
 
-//   char* firstName = "John";
-//   char* lastName = "Doe";
-//   int courses[] = {20,30,40,50};
-  //int *courseId = &courses;
-  bool studentExists=false;
-  system("clear");
-  printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
-  while(selection != 0) {
-    printLine();
-    printf("\n\n\nChoose from the following options:\n 1- Add a new student\n 2- Add/Delete a course\n 3- Search for a student\n 4- Print fee invoice \n 5- Print Students \n 6- Print Registered Courses \n 0- Exit Program");
-    printf("\nEnter your selection:");
-        scanf("%d", &selection);
-    //printf("Enter the Student's ID:");
-    //     scanf("%d", &id);
-    if (selection==1){
-
+            //addCourse(studentRecords,studentCourse);
+            printLine();
+            printf("Available Courses to choose from:\n");
+            printLine();
+            printAvailableCourses();
             printf("Enter the student's id:");
             //scanf("%d", &studentRecords[recordId].studentId);
             scanf("%d", &studentId);
             tempStudent = searchStudent(studentId);
-            if (tempStudent.studentId != 0){
-                printf("Search Results: %d\n",tempStudent.studentId);
-                printf("\n\nStudent with ID %d already exists\n\n",studentId);
-            }
-            else {
-                printf("Enter the student's first name:");
-                //scanf("%s", studentRecords[recordId].firstName);
-                scanf("%s", firstName=(char*)malloc(sizeof(char*)));
-                printf("Enter the student's last name:");
-                scanf("%s", lastName=(char*)malloc(sizeof(char*)));
-                addStudent(studentId,firstName,lastName);
-            }
-        //}
-            
-            //recordId++;
-    }
-
-    else if (selection==2){
-        //Call and add function to print students current courses
-        //CourseNumber, Prefix, Credit Hours
-
-        //Add options to get for adding, deleting or canceling adding course options
-        //Use a switch/case for gathering option chosen
-
-        //addCourse(studentRecords,studentCourse);
-        printLine();
-        printf("Available Courses to choose from:\n");
-        printLine();
-        printAvailableCourses();
-        printf("Enter the student's id:");
-        //scanf("%d", &studentRecords[recordId].studentId);
-        scanf("%d", &studentId);
-        tempStudent = searchStudent(studentId);
-            if (tempStudent.studentId != 0){
-                if(checkStudentRegistration(studentId))
+                if (tempStudent.studentId != 0){
+                    menuAddCourse(tempStudent);
+                    //if(checkStudentRegistration(tempStudent.studentId)
                     printRegisteredCourses(studentId);
-                else
-                    printf("Student isn't registered for any courses.\n");
-            }
-            else {
-                printf("\n\nStudent with ID %d doesn't exists",studentId);
-            }
-        
-    }
-    else if (selection==3){
-        printf("Enter the student's id:");
+                    //else
+                    //    printf("Student isn't registered for any courses.\n");
+                }
+                else {
+                    printf("\n\nStudent with ID %d doesn't exists",studentId);
+                }
+            
+        }
+        //Search for a student
+        else if (selection==3){
+            printf("Enter the student's id:");
+                //scanf("%d", &studentRecords[recordId].studentId);
+                scanf("%d", &studentId);
+                tempStudent = searchStudent(studentId);
+                if (tempStudent.studentId != 0){
+                    printStudent(tempStudent);
+                }
+                else {
+                    printf("\n\nStudent with ID %d doesn't exists",studentId);
+                }
+
+        }
+        //print fee invoice
+        else if (selection==4){
+            printf("Enter the student's id:");
             //scanf("%d", &studentRecords[recordId].studentId);
             scanf("%d", &studentId);
-            tempStudent = searchStudent(studentId);
-            if (tempStudent.studentId != 0){
-                printStudent(tempStudent);
-            }
-            else {
-                printf("\n\nStudent with ID %d doesn't exists",studentId);
-            }
-
+            printStudentInvoice(studentId);
+            //break;
+        }
+        //Print students
+        else if (selection==5){
+            printStudents();
+            //printLine();
+        }
+    //Print a students registered courses
+        else if (selection==6){
+            printf("Enter the student's id:");
+            //scanf("%d", &studentRecords[recordId].studentId);
+            scanf("%d", &studentId);
+            if(checkStudentRegistration(studentId))
+                printRegisteredCourses(studentId);
+            else
+                printf("Student isn't registered for any courses.\n");
+        }
+        //Print registered courses all
+        else if (selection==7)
+        {
+            printStudentCourses();
+        }
+        else if (selection==0){
+            printf("Goodbye!\n");
+            exit;
+        }
+        else {
+            printf("Incorrect Selection, please try again!\n");
+            selection = -1;
+        }
     }
-    else if (selection==4){
-        printf("Enter the student's id:");
-        //scanf("%d", &studentRecords[recordId].studentId);
-        scanf("%d", &studentId);
-        printRegisteredCourses(studentId);
-    }
-    else if (selection==5){
-        printStudents();
-        printLine();
-    }
-    else if (selection==6){
-        printf("Enter the student's id:");
-        //scanf("%d", &studentRecords[recordId].studentId);
-        scanf("%d", &studentId);
-        if(checkStudentRegistration(studentId))
-            printRegisteredCourses(studentId);
-        else
-            printf("Student isn't registered for any courses.\n");
-    }
-    else if (selection==0){
-        printf("Goodbye!\n");
-        exit;
-    }
-    else {
-        printf("Incorrect Selection, please try again!\n");
-        selection = -1;
-    }
-  }
-  return 0;
+  return;
 }
-
 void addStudent(int studentId, char* firstName, char* lastName) {
     //studentRecords[recordId].firstName=(char*)malloc(sizeof(char*));
     //studentRecords[recordId].lastName=(char*)malloc(sizeof(char*));
@@ -246,40 +260,86 @@ void addStudent(int studentId, char* firstName, char* lastName) {
     return;
 }
 
-void addCourse(int studentId) {
-    int numCourses=0;
-    int tempCourseNum;
-    char tempCourseSelection[numMaxCourses];
-
-/*
-Logic required for addCourse
-1. Capture number of courses plan on taking
-    1a)Validate if number is less or equal to 4
-    1b)If yess then proceed to add course
-2. Validate that course being added is a valid course
-    2a) Use validate function to query course array.  If course # exists then proceed.  Function will return true or false boolean value.
-    2b) If course isn't valid then prompt user that course is incorrect and request to enter course # again.  Need to decide what type of decision flow operator to use (i.e. While loop, etc.)
-3. Add course to studentCourse array.  Must check if user has reached max of four courses registered.
-    3a)Check if max course of 4 per student has been reached. If not then proceed to add.
-    3b)If max courses registration is reached then return to main menu using return command at end of function.
-
-
-*/
-        printf("\nEnter how many courses [STUDENT_NAME] is taking (up to 4 courses)?");
-            scanf("%d", &numCourses);
-        if(numCourses <= numMaxCourses) {
-            for(int i=0; i<numCourses;i++)
-                printf("\nEnter the %d course number: ",i+1);
-                //scanf("%d", tempCourseSelection[i]);
-                //while(validateCourse(tempCourseSelection[i])
-
-                //Add course to studentCourses array
+void addCourse(int studentId, int courseId) {
+    //Issue - How do I add to studentCourse structure without knowing the index to update.  
+    //The course structure should follow this logic add
+    // 1. Check if student already registered in courseid
+    // 2. If not then proceed to add
+    //                 }
+    int availCourseCount=4;
+    int nextIndex = sizeOfStudentCourses();
+    //If student isn't registered for any courses, add immediately.
+        if(!checkStudentRegistration(studentId)) {
+            //printf("addCourse: nextIndex %d\n",nextIndex);
+            studentCourses[nextIndex].studentId=studentId;
+            studentCourses[nextIndex].coursesId[0]=courseId;
+            //printRegisteredCourses(studentId);
+            //printRegistrationInfo();
+            printf("Student added to course %d\n",courseId);
+            printRegisteredCourses(studentId);
+            return;
         }
+        //If student is registered then check for 
+        else {
+        //if(studentCourses[i].studentId == studentId) {
+              for(int i=0; i < sizeof(studentCourses)/sizeof(studentCourses[0]); i++) {
+                  if(studentCourses[i].studentId == studentId)
+                //printf("%i:",studentCourses[i].studentId);
+                for(int j=0; j<sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]); j++) {
+                    //Find student and add course only if there's an empty spot.
+                    if(studentCourses[i].coursesId[j]==0 && studentCourses[i].studentId==studentId) {
+                        //printf("%i,",studentCourses[i].coursesId[j]);
+                        studentCourses[i].coursesId[j]=courseId;
+                        return;
+                    }
 
-    //Search for studentid in studentList
-    //Add course to student's records
+             //printf("\n");
+            }
+            //printf("\n");
+        }
+        }
+     return;
+}
+
+void menuAddCourse (student studentVar) {
+    int courseId=0;
+    char menu_option;
+    
+    while(1)
+    {   
+        printf("\n\n\nChoose from:\n A- Add a new course for [%s %s]\n B- Delete a course for [%s %s]'s schedule\n C- Cancel Operations\n",studentVar.firstName,studentVar.lastName,studentVar.firstName,studentVar.lastName);
+        printf("\nEnter your selection: ");
+        scanf(" %c", &menu_option);
+        menu_option = toupper(menu_option);
+        //printf("Enter the Student's ID:");
+        //     scanf("%d", &id);
+        fflush(stdin);
+        switch(menu_option){
+
+        case 'A':
+            printf("Enter course Number to add:");
+            scanf("%d", &courseId);
+            if(validateCourse(courseId)) {
+                addCourse(studentVar.studentId,courseId);
+                break;
+            }
+            else {
+              printf("Invalid course number %d, please try again\n",courseId);
+              break;
+            }
+        case 'B':
+            printf("case b");
+            break;
+        case'C':
+            printf("case c");
+            //difficulty = get_difficulty();
+            return;
+        default:
+        //     printf("invalid input");
+            break;
+        }
+    }
     return;
-
 }
 
 
@@ -296,27 +356,20 @@ course* getCourseInfo(int crn) {
      }
     return tempCourses;
 }
-bool validateCourse(int courseNum) {
-    //Check if course number is valid
-    printf("Size of courses array %lu\n",sizeof(courses));
-    printf("Size of courses crn %lu\n",sizeof(courses->crn));
-    // for(int i=0; i<sizeof(studentCourses); i++) {
-    //     for(int j=0; j<sizeof(studentCourses[i].coursesId))
-    //     if(courseNum == studentCourses[i].coursesId) {
-    //         printf("Found matching record\n");
-    //         return true;
-    //     }
-    //     else {
-    //      printf("No matching record\n");
-    //        return false;
-    //     }
-    //remove later
-    return false;
-    //}
+
+bool validateCourse(int courseId) {
+    bool validCourse=false;
+    for(int i=0; i<sizeof(courses)/sizeof(courses[0]);i++) {
+        if(courses[i].crn==courseId)
+            validCourse=true;
+    }
+    return validCourse;
+
 }
 
 void printRegisteredCourses(int studentId){
-     int numRecords = sizeofArray;
+     student tempStudent;
+     int numRecords = sizeof(studentCourses)/sizeof(studentCourses[0]);
      float tempTotal = 0;
      int tempCreditHours =0;
      int tempCoursesFound =0;
@@ -327,7 +380,64 @@ void printRegisteredCourses(int studentId){
 
      if (tempStudent.studentId!= 0) {
     //printf("CRN\tCourse Name\tCredit Hours\n");
-            system("clear");
+            //system("clear");
+            printHeader();
+            printf("Student Course Registration:\n");
+            //Need to call getStudent Info to retrieve full name
+            printf("%i\n\n",studentId);
+            //printf("1 Credit Hour = $120.25\n\n");
+            printf("CRN\tCR_PREFIX\tCR_HOURS\n");
+            for(int i=0; i < numRecords ; i++) {
+                //printf("Student Id %i\n",studentCourses[i].studentId);
+                //If matches student id then go through the registered courses
+                
+                if(studentCourses[i].studentId == studentId) {
+                    for(int j=0; j<maxNumberofCourses; j++) {
+                //}
+                    
+                    if(studentCourses[i].coursesId[j] != NULL) {
+                        //printf("Student RegisteredCourse %i\n",studentCourses[i].coursesId[j]);
+                        tempCreditHours = getCourseInfo(studentCourses[i].coursesId[j])->creditHours;
+                        printf("%i\t",getCourseInfo(studentCourses[i].coursesId[j])->crn);
+                        printf("%s\t\t",getCourseInfo(studentCourses[i].coursesId[j])->courseName);
+                        printf("%i\t",tempCreditHours);
+                        //printf("$ %.2f\t",tempCreditHours * costPerCreditHour);
+                        printf("\n");
+                        //tempTotal=tempTotal + (tempCreditHours * costPerCreditHour);
+                        tempCoursesFound++;
+                    }
+                }
+                    //printf("tempCoursesFound: %i%",tempCoursesFound);
+                    // printf("\n\t\t\t\tHealth & id fees $ %.2f",studentFees);
+                    // printf("\n\n");
+                    // printLine();
+                    // printf("\t\t\t\tTotal Payments %.2f", tempTotal);
+                    // printf("\n\n");
+            }
+                //if(courses[i].courseName != NULL)
+                //printf("%d\t %s\t %d\n",courses[i].crn,courses[i].courseName,courses[i].creditHours);
+            }
+     }
+     else 
+        printf("Student with ID %d doesn't exists, try again.\n",studentId);
+    
+    return;
+}
+
+void printStudentInvoice(int studentId){
+     student tempStudent;
+     int numRecords = sizeof(studentCourses)/sizeof(studentCourses[0]);
+     float tempTotal = 0;
+     int tempCreditHours =0;
+     int tempCoursesFound =0;
+     int studentSearchResults;
+     //student tempStudent;
+     tempStudent = searchStudent(studentId);
+     //printf("studentSearchResults %d\n",studentSearchResults);
+
+     if (tempStudent.studentId!= 0) {
+    //printf("CRN\tCourse Name\tCredit Hours\n");
+            //system("clear");
             printHeader();
             printf("Fee Invoice Prepared for Student:\n");
             //Need to call getStudent Info to retrieve full name
@@ -354,7 +464,7 @@ void printRegisteredCourses(int studentId){
                         tempCoursesFound++;
                     }
                 }
-                    printf("tempCoursesValue: %i%",tempCoursesFound);
+                    //printf("tempCoursesFound: %i%",tempCoursesFound);
                     printf("\n\t\t\t\tHealth & id fees $ %.2f",studentFees);
                     printf("\n\n");
                     printLine();
@@ -365,10 +475,10 @@ void printRegisteredCourses(int studentId){
                 //printf("%d\t %s\t %d\n",courses[i].crn,courses[i].courseName,courses[i].creditHours);
             }
      }
-     else {
+     else 
         printf("Student with ID %d doesn't exists, try again.\n",studentId);
-    }
-        return;
+    
+    return;
 }
 
 
@@ -399,22 +509,21 @@ void printStudent(student studentVar){
 }
 
 student searchStudent(int studentId) {
-    int numRecords = studentRecordStartIndex;
-    tempStudent.studentId=NULL;
+    student tempStudent;
+    tempStudent.studentId = NULL;
     //printf("Entering searchStudent function\n\n");
-    for(int i=0; i < numRecords ; i++) {
+    for(int i=0; i < sizeOfStudentRecords() ; i++) {
         //printf("%d\n",studentRecords[i].studentId);
             if (studentRecords[i].studentId == studentId) {
-                tempStudent.studentId = studentRecords[i].studentId;
-                tempStudent.firstName = studentRecords[i].firstName;
-                tempStudent.lastName = studentRecords[i].lastName;
+                tempStudent = studentRecords[i];
             }
     }
     return tempStudent;
 }
 
+
 bool checkStudentRegistration(int studentId) {
-    int numRecords = maxAvailableCourses;
+    int numRecords = sizeOfStudentCourses();
     int indexOfCourse = 0;
     bool registeredStatus = false;
     //Do a for loop to query the courses
@@ -425,6 +534,44 @@ bool checkStudentRegistration(int studentId) {
          }
      }
     return registeredStatus;
+}
+void printStudentCourses() {
+    int numRecords = sizeof(studentCourses)/sizeof(studentCourses[0]);
+        //printf("Number of Records to Search: %d\n",numRecords);
+        //Need a for loop to iterate array
+        if(numRecords == 0) {
+            printf("No Records\n");
+        }
+        else{
+            //printLine();
+            printf("Students Courses List:\n");
+            for(int i=0; i < numRecords ; i++) {
+                if (studentCourses[i].studentId != NULL)
+                printf("studentid:%d,courseids:%d,%d,%d,%d\n",studentCourses[i].studentId,studentCourses[i].coursesId[0],studentCourses[i].coursesId[1],studentCourses[i].coursesId[2],studentCourses[i].coursesId[3]);
+            }
+        }
+
+    return;
+
+}
+
+int sizeOfStudentCourses() {
+    int size=0;
+    for(int i=0; i < sizeof(studentCourses)/sizeof(studentCourses[0]); i++) {
+        if(studentCourses[i].studentId != 0)
+            size++;
+    }
+    return size;
+}
+
+int sizeOfStudentRecords() {
+    int size=0;
+    for(int i=0; i < sizeof(studentRecords)/sizeof(studentRecords[0]); i++) {
+        if(studentRecords[i].studentId != 0)
+            size++;
+        //printf("%i:\n",studentRecords[i].studentId);
+    }
+    return size;
 }
 
 void printAvailableCourses(){
