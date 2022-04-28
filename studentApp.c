@@ -282,6 +282,7 @@ Logic required for addCourse
 
 }
 
+
 course* getCourseInfo(int crn) {
     int numRecords = maxAvailableCourses;
     int indexOfCourse = 0;
