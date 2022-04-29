@@ -1,0 +1,140 @@
+printf("coursessize: %lu\n", sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]));
+    for(int i=0; i < sizeof(studentCourses)/sizeof(studentCourses[0]); i++) {
+         printf("%i:",studentCourses[i].studentId);
+         for(int j=0; j<sizeof(studentCourses->coursesId)/sizeof(studentCourses->coursesId[0]); j++) {
+             printf("%i,",studentCourses[i].coursesId[j]);
+             //printf("\n");
+         }
+         printf("\n");
+
+
+         // printf("%i:",studentCourses[0].studentId);
+        // printf("%i:",studentCourses[0].coursesId[0]);
+        // printf("%i:",studentCourses[0].coursesId[1]);
+        // printf("%i:",studentCourses[0].coursesId[2]);
+        // printf("%i:",studentCourses[0].coursesId[3]);
+
+        struct studentCourse studentCourses[] = {
+                                        {1234,{4587,4599,8997}},
+                                        {6589,{4587,1232,8520,9856}},
+                                        {1587,{1232}}
+                                        };
+
+
+
+char menu_option,initials;
+    int difficulty;
+
+    printf("        EDUCATIONAL MATH PROGRAM!!!\n");
+    printf("------------------------------------------\n\n");
+
+
+    do{
+    printf("Main Menu\n");
+    printf("a. Learn about how to use program.\n");
+    printf("b. Enter your initials (3 individual letters).\n");
+    printf("c. Difficulty Selection.\n");
+    printf("d. Start a new sequence of problems.\n");
+    printf("e. Save and quit.\n");
+    printf(" Please enter an option from the main menu: ");
+    scanf("%c",&menu_option);
+
+    switch(menu_option){
+
+    case 'a':
+        //Learn_to_use();
+
+        break;
+    case 'b':
+        initials=get_intials();
+        printf( "input initials:%c\n", initials) ;
+        break;
+    case'c':
+        printf("case c");
+        //difficulty = get_difficulty();
+        break;
+    case'd':
+        break;
+    case'e':
+        break;
+    default:
+        printf("invalid input");
+            break;
+    }
+
+    }while(menu_option !='e');
+}
+
+
+#include<stdio.h>
+
+int main()
+{
+    printf("\n\n\t\tStudytonight - Best place to learn\n\n\n");
+    int choice, num, i;
+    unsigned long int fact;
+
+    while(1)
+    {
+        printf("1. Factorial \n");
+        printf("2. Prime\n");
+        printf("3. Odd\\Even\n");
+        printf("4. Exit\n\n\n");
+        printf("Enter your choice :  ");
+        scanf("%d",&choice);
+        
+        switch(choice)
+        {
+            case 1:
+                printf("Enter number:\n");
+                scanf("%d", &num);
+                fact = 1;
+                for(i = 1; i <= num; i++)
+                {
+                    fact = fact*i;
+                }
+                printf("\n\nFactorial value of %d is = %lu\n\n\n",num,fact);
+                break;
+        
+            case 2:
+                printf("Enter number:\n");
+                scanf("%d", &num);
+                if(num == 1)
+                printf("\n1 is neither prime nor composite\n\n");
+                for(i = 2; i < num; i++)
+                {
+                    if(num%i == 0)
+                    {
+                        printf("\n%d is not a prime number\n\n", num);
+                        break;
+                    }
+                
+                }
+                /*
+                    Not divisible by any number other 
+                    than 1 and itself
+                */
+                if(i == num) 
+                {
+                    printf("\n\n%d is a Prime number\n\n", num);
+                    break;
+                }
+        
+            case 3:
+                printf("Enter number:\n");
+                scanf("%d", &num);
+        
+                if(num%2 == 0) // 0 is considered to be an even number
+                    printf("\n\n%d is an Even number\n\n",num);
+                else
+                    printf("\n\n%d is an Odd number\n\n",num);
+                break;
+        
+            case 4:
+                printf("\n\n\t\t\tCoding is Fun !\n\n\n");
+                exit(0);    // terminates the complete program execution
+        }
+    }
+    printf("\n\n\t\t\tCoding is Fun !\n\n\n");
+    return 0;
+}
