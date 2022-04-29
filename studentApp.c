@@ -325,7 +325,7 @@ void addStudent(int studentId, char* firstName, char* lastName) {
         printf(".");
     }
     printf("Student %s %s added\n",firstName, lastName);
-    delay(2000);
+    //delay(2000);
     //delay(3000);
     //system("clear");
     return;
@@ -419,7 +419,7 @@ void menuAddCourse (student studentVar) {
             if(validateCourse(courseId)) {
                 addCourse(studentVar.studentId,courseId);
                 printRegisteredCourses(studentVar.studentId);
-                delay(3600);
+                //delay(3600);
                 break;
             }
             else {
@@ -446,7 +446,7 @@ void menuAddCourse (student studentVar) {
                          printInvoice(studentVar.studentId);
                 //         delay(3600);
                      }
-                delay(3600);
+                //delay(3600);
                 //break;
             }
             else {
