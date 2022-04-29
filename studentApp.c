@@ -202,6 +202,7 @@ void displayMainMenu() {
                                 addCourse(studentId,course1);
                                 addCourse(studentId,course2);
                                 addCourse(studentId,course3);
+                                addCourse(studentId,course4);
                              }
                         break;
                     }
