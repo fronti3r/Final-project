@@ -224,6 +224,7 @@ void displayMainMenu() {
             //printLine();
             printf("Available Courses to choose from:\n");
             printLine();
+            printAvailableCourses();
             printf("Enter the student's id:");
             //scanf("%d", &studentRecords[recordId].studentId);
             scanf("%d", &studentId);
