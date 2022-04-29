@@ -197,7 +197,7 @@ void displayMainMenu() {
                         break;
                         case 4:
                             printf("Enter the %c courses\n",courseNumOption);
-                            scanf("%d %d", &course1, &course2, &course3, &course4);
+                            scanf("%d %d %d %d", &course1, &course2, &course3, &course4);
                              if(validateCourse(course1) && validateCourse(course2) && validateCourse(course3) && validateCourse(course4)){
                                 addCourse(studentId,course1);
                                 addCourse(studentId,course2);
