@@ -130,7 +130,7 @@ void displayMainMenu() {
     int courseNumOption;
     int course1,course2,course3,course4;
 
-    system("clear");
+    //system("clear");
     printf("Welcome to VALENCE COMMUNITY COLLEGE Student Managment System\n");
     while(selection != 0) {
         printLine();
@@ -325,7 +325,7 @@ void addStudent(int studentId, char* firstName, char* lastName) {
     printf("Student %s %s added\n",firstName, lastName);
     delay(2000);
     //delay(3000);
-    system("clear");
+    //system("clear");
     return;
 }
 
